@@ -57,8 +57,8 @@ _package() {
   depends=(coreutils kmod initramfs)
   optdepends=('wireless-regdb: to set the correct wireless channels of your country'
               'linux-firmware: firmware images needed for some devices')
-  provides=(VIRTUALBOX-GUEST-MODULES WIREGUARD-MODULE)
-  replaces=(virtualbox-guest-modules-arch wireguard-arch)
+  #provides=(VIRTUALBOX-GUEST-MODULES WIREGUARD-MODULE)
+  #replaces=(virtualbox-guest-modules-arch wireguard-arch)
 
   cd linux-$_srcname
   local kernver="$(<version)"
@@ -91,7 +91,7 @@ _package-headers() {
   install -Dt "$builddir" -m644 .config Makefile Module.symvers System.map \
     localversion.* version vmlinux
   install -Dt "$builddir/kernel" -m644 kernel/Makefile
-  install -Dt "$builddir/arch/x86" -m644 arch/x86/Makefile
+  install -Dt "$builddir/arch/riscv" -m644 arch/riscv/Makefile
   cp -t "$builddir" -a scripts
 
   # required when STACK_VALIDATION is enabled
@@ -102,8 +102,8 @@ _package-headers() {
 
   echo "Installing headers..."
   cp -t "$builddir" -a include
-  cp -t "$builddir/arch/x86" -a arch/x86/include
-  install -Dt "$builddir/arch/x86/kernel" -m644 arch/x86/kernel/asm-offsets.s
+  cp -t "$builddir/arch/riscv" -a arch/riscv/include
+  install -Dt "$builddir/arch/riscv/kernel" -m644 arch/riscv/kernel/asm-offsets.s
 
   install -Dt "$builddir/drivers/md" -m644 drivers/md/*.h
   install -Dt "$builddir/net/mac80211" -m644 net/mac80211/*.h
@@ -125,7 +125,7 @@ _package-headers() {
   echo "Removing unneeded architectures..."
   local arch
   for arch in "$builddir"/arch/*/; do
-    [[ $arch = */x86/ ]] && continue
+    [[ $arch = */riscv/ ]] && continue
     echo "Removing $(basename "$arch")"
     rm -r "$arch"
   done
