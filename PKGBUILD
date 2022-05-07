@@ -47,7 +47,7 @@ prepare() {
 }
 
 build() {
-  cd $_srcname
+  cd linux-$_srcname
   make all
   make htmldocs
 }
@@ -60,7 +60,7 @@ _package() {
   provides=(VIRTUALBOX-GUEST-MODULES WIREGUARD-MODULE)
   replaces=(virtualbox-guest-modules-arch wireguard-arch)
 
-  cd $_srcname
+  cd linux-$_srcname
   local kernver="$(<version)"
   local modulesdir="$pkgdir/usr/lib/modules/$kernver"
 
@@ -84,7 +84,7 @@ _package-headers() {
   pkgdesc="Headers and scripts for building modules for the $pkgdesc kernel"
   depends=(pahole)
 
-  cd $_srcname
+  cd linux-$_srcname
   local builddir="$pkgdir/usr/lib/modules/$(<version)/build"
 
   echo "Installing build files..."
@@ -165,7 +165,7 @@ _package-headers() {
 _package-docs() {
   pkgdesc="Documentation for the $pkgdesc kernel"
 
-  cd $_srcname
+  cd linux-$_srcname
   local builddir="$pkgdir/usr/lib/modules/$(<version)/build"
 
   echo "Installing documentation..."
