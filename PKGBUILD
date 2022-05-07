@@ -32,7 +32,8 @@ prepare() {
     ### Setting config
     echo "Setting config..."
     cat ${srcdir}/linux-$_srcname/arch/riscv/configs/starfive_jh7100_fedora_defconfig >./.config
-    make oldconfig && make prepare
+    make oldconfig
+    diff -u ${srcdir}/linux-$_srcname/arch/riscv/configs/starfive_jh7100_fedora_defconfig .config || :
 
     ### Prepared version
     make -s kernelrelease > version
