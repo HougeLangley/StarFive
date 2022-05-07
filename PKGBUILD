@@ -27,7 +27,7 @@ export KBUILD_BUILD_USER=$pkgbase
 export KBUILD_BUILD_TIMESTAMP="$(date -Ru${SOURCE_DATE_EPOCH:+d @$SOURCE_DATE_EPOCH})"
 
 prepare() {
-    cd $_srcname
+    cd linux-$_srcname
 
     ### Setting config
     echo "Setting config..."
