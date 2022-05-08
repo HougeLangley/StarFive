@@ -3,7 +3,7 @@
 ### BUILD OPTIONS
 _makemenuconfig=y
 pkgbase=linux-starfive-visionfive-v1
-pkgver=5.18.0.starfive-visionfive-v1
+pkgver=5.18.0.v1
 pkgrel=5
 pkgdesc='Linux StarFive RISC-V'
 _srctag=v${pkgver%.*}-${pkgver##*.}
