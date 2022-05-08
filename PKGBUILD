@@ -56,19 +56,14 @@ _package() {
   depends=(coreutils kmod initramfs)
   optdepends=('wireless-regdb: to set the correct wireless channels of your country'
               'linux-firmware: firmware images needed for some devices')
-  provides=(WIREGUARD-MODULE)
-  replaces=(wireguard-arch)
 
   cd linux-$_srcname
   local kernver="$(<version)"
   local modulesdir="$pkgdir/usr/lib/modules/$kernver"
 
   echo "Installing boot image..."
-  # systemd expects to find the kernel here to allow hibernation
-  # https://github.com/systemd/systemd/commit/edda44605f06a41fb86b7ab8128dcf99161d2344
   install -Dm644 "$(make -s image_name)" "$modulesdir/vmlinuz"
 
-  # Used by mkinitcpio to name the kernel
   echo "$pkgbase" | install -Dm644 /dev/stdin "$modulesdir/pkgbase"
 
   echo "Installing modules..."
@@ -88,7 +83,7 @@ _package-headers() {
 
   echo "Installing build files..."
   install -Dt "$builddir" -m644 .config Makefile Module.symvers System.map \
-    localversion.* version vmlinux
+    version vmlinux
   install -Dt "$builddir/kernel" -m644 kernel/Makefile
   install -Dt "$builddir/arch/riscv" -m644 arch/riscv/Makefile
   cp -t "$builddir" -a scripts
