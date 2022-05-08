@@ -57,8 +57,8 @@ _package() {
   depends=(coreutils kmod initramfs)
   optdepends=('wireless-regdb: to set the correct wireless channels of your country'
               'linux-firmware: firmware images needed for some devices')
-  #provides=(VIRTUALBOX-GUEST-MODULES WIREGUARD-MODULE)
-  #replaces=(virtualbox-guest-modules-arch wireguard-arch)
+  provides=(WIREGUARD-MODULE)
+  replaces=(wireguard-arch)
 
   cd linux-$_srcname
   local kernver="$(<version)"
@@ -76,8 +76,8 @@ _package() {
   make INSTALL_MOD_PATH="$pkgdir/usr" INSTALL_MOD_STRIP=1 \
     DEPMOD=/doesnt/exist modules_install  # Suppress depmod
 
-  # remove build and source links
-  rm "$modulesdir"/{source,build}
+  echo "Installing dtbs..."
+  make INSTALL_DTBS_PATH="$pkgdir/usr/share/dtbs/$kernver" dtbs_install
 }
 
 _package-headers() {
@@ -93,9 +93,6 @@ _package-headers() {
   install -Dt "$builddir/kernel" -m644 kernel/Makefile
   install -Dt "$builddir/arch/riscv" -m644 arch/riscv/Makefile
   cp -t "$builddir" -a scripts
-
-  # required when STACK_VALIDATION is enabled
-  install -Dt "$builddir/tools/objtool" tools/objtool/objtool
 
   # required when DEBUG_INFO_BTF_MODULES is enabled
   install -Dt "$builddir/tools/bpf/resolve_btfids" tools/bpf/resolve_btfids/resolve_btfids
