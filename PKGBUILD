@@ -67,8 +67,7 @@ _package() {
   echo "$pkgbase" | install -Dm644 /dev/stdin "$modulesdir/pkgbase"
 
   echo "Installing modules..."
-  make INSTALL_MOD_PATH="$pkgdir/usr" INSTALL_MOD_STRIP=1 \
-    DEPMOD=/doesnt/exist modules_install  # Suppress depmod
+  make INSTALL_MOD_PATH="$pkgdir/usr" INSTALL_MOD_STRIP=1 modules_install
 
   echo "Installing dtbs..."
   make INSTALL_DTBS_PATH="$pkgdir/usr/share/dtbs/$kernver" dtbs_install
