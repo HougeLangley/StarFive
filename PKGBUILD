@@ -73,7 +73,7 @@ _package() {
   make INSTALL_DTBS_PATH="$pkgdir/usr/share/dtbs/$kernver" dtbs_install
 
   # remove build links
-  rm "$modulesdir"/{build}
+  rm "$modulesdir"/build
 }
 
 _package-headers() {
