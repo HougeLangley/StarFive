@@ -20,7 +20,7 @@ _srcname=fcdc9cc2441c3304c0cddc25a05ae0b5af0e1be4
 
 source=("https://github.com/starfive-tech/linux/archive/${_srcname}.tar.gz")
 
-sha256sums=('1e9f615b90890ac0cbe09bbc9031a6b0cdd037fd0e1daf62eed7251cb6c2b566')
+sha256sums=('e842bef19db0bad97872275816fc836939d32fec6fbfccca5e1a2ae537df4c37')
 
 export KBUILD_BUILD_HOST=archlinux
 export KBUILD_BUILD_USER=$pkgbase
