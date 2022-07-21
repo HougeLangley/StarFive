@@ -3,8 +3,8 @@
 ### BUILD OPTIONS
 _makemenuconfig=y
 pkgbase=linux-starfive-visionfive-v1
-pkgver=5.18.0.v1
-pkgrel=5
+pkgver=5.19.0.v1
+pkgrel=1
 pkgdesc='Linux StarFive RISC-V'
 _srctag=v${pkgver%.*}-${pkgver##*.}
 url="https://github.com/starfive-tech/linux/commits/$_srctag"
@@ -16,7 +16,7 @@ makedepends=(
   git
 )
 options=('!strip')
-_srcname=f568ecc24aebec8ce1c59b86f2a85098675a4091
+_srcname=fcdc9cc2441c3304c0cddc25a05ae0b5af0e1be4
 
 source=("https://github.com/starfive-tech/linux/archive/${_srcname}.tar.gz")
 
